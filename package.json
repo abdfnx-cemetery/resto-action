@@ -1,0 +1,32 @@
+{
+  "name": "resto-action",
+  "version": "0.0.1",
+  "description": "GitHub action for Resto",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdfnx/resto-action.git"
+  },
+  "keywords": [
+    "actions",
+    "github",
+    "resto",
+    "golang",
+    "automation"
+  ],
+  "author": "Abdfnx",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abdfnx/resto-action/issues"
+  },
+  "homepage": "https://github.com/abdfnx/resto-action#readme",
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "jest": "^27.4.7",
+    "jest-circus": "^27.4.6",
+    "jest-runtime": "^27.4.6"
+  }
+}
