@@ -13,11 +13,11 @@ group "default" {
 }
 
 group "pre-checkin" {
-  targets = ["vendor-update", "format", "build"]
+  targets = ["vendor-update", "build"]
 }
 
 group "validate" {
-  targets = ["format-validate", "build-validate", "vendor-validate"]
+  targets = ["build-validate", "vendor-validate"]
 }
 
 target "build" {
