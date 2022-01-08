@@ -31,5 +31,10 @@
     "jest-runtime": "^27.4.6",
     "ts-jest": "^27.1.2",
     "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/exec": "^1.1.0",
+    "@actions/http-client": "^1.0.11"
   }
 }
