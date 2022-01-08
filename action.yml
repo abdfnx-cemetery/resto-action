@@ -1,0 +1,21 @@
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: "Resto Action"
+description: "GitHub Action for Resto"
+author: "abdfnx"
+
+branding:
+  color: "blue"
+  icon: "link-2"
+
+inputs:
+  args:
+    description: "Arguments passed to the action"
+    required: false
+  just-install:
+    description: "Just install Resto"
+    default: "false"
+    required: false
+
+runs:
+  using: "node12"
+  main: "dist/index.js"
