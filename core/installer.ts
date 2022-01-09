@@ -1,8 +1,8 @@
 import * as core from "@actions/core";
 import * as tc from "@actions/tool-cache";
 import * as io from "@actions/io";
+import * as exec from "@actions/exec";
 import axios from "axios";
-const execSync = require("child_process");
 
 export function version() {
   return axios
@@ -19,6 +19,8 @@ export async function installZip(path, url) {
   await io.mkdirP(path);
   const downloadPath = await tc.downloadTool(url);
   await tc.extractZip(downloadPath, path);
+
+  exec.exec(`echo ${path}`);
 
   core.addPath(path);
 }
