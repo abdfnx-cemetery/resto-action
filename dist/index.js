@@ -72,7 +72,7 @@ const install = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         case "linux":
         case "darwin": {
-            exec.exec("curl -sL https://git.io/resto | bash");
+            exec.exec("curl -fsSL https://git.io/resto | sh");
             break;
         }
         default: {
@@ -141,7 +141,8 @@ function run() {
             if ((0, os_1.platform)() === "win32") {
                 exe += ".exe";
             }
-            yield exec.exec(`${exe} ${args}`);
+            exec.exec(`which resto`);
+            exec.exec(`${exe} ${args}`);
         }
         catch (error) {
             core.setFailed(error.message);
