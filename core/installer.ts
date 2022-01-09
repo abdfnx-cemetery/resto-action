@@ -2,15 +2,6 @@ import * as core from "@actions/core";
 import * as tc from "@actions/tool-cache";
 import * as io from "@actions/io";
 import * as exec from "@actions/exec";
-import axios from "axios";
-
-export function version() {
-  return axios
-    .get("https://get-latest.secman.dev/abdfnx/resto")
-    .then((response) => {
-      return response.data;
-    });
-}
 
 const workspace = process.env.GITHUB_WORKSPACE;
 export const binDir = `${workspace}/bin`;
@@ -19,27 +10,21 @@ export async function installZip(path, url) {
   await io.mkdirP(path);
   const downloadPath = await tc.downloadTool(url);
   await tc.extractZip(downloadPath, path);
-
-  // exec.exec(`echo ${downloadPath}`);
-
   core.addPath(path);
 }
 
-export const install = async () => {
-  switch (process.platform) {
-    case "win32": {
-      exec.exec("iwr -useb https://git.io/resto-win | iex");
-      break;
-    }
+export async function executeInstallSh(installPath) {
+  // download script
+  const url = "https://git.io/resto";
+  const downloadPath = await tc.downloadTool(url);
+  exec.exec(`chmod +x ${downloadPath}`);
 
-    case "linux":
-    case "darwin": {
-      await exec.exec("curl -fsSL https://git.io/resto | bash");
-      break;
-    }
+  // execute script
+  await io.mkdirP(installPath);
+  const installCommand = `${downloadPath} ${installPath}`;
 
-    default: {
-      throw new Error(`Unsupported platform '${process.platform}'`);
-    }
-  }
-};
+  exec.exec(installCommand);
+
+  // add binary to PATH
+  core.addPath(installPath);
+}

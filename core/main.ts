@@ -1,31 +1,32 @@
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-import { platform } from "os";
-import { version, install, binDir } from "./installer";
+import { installZip, executeInstallSh, binDir } from "./installer";
 
 async function run() {
   try {
+    switch (process.platform) {
+      case "win32": {
+        const url = "https://api.secman.dev/resto-windows-latest";
+        await installZip(binDir, url);
+        break;
+      }
+      case "linux":
+      case "darwin": {
+        await executeInstallSh(binDir);
+        break;
+      }
+      default: {
+        throw new Error(`Unsupported platform '${process.platform}'`);
+      }
+    }
+
     const args = core.getInput("args");
-    const isJustInstall = /^true$/i.test(core.getInput("just-install"));
 
-    core.info(`Resto ${version()} installed successfully`);
-
-    install();
-
-    if (isJustInstall) {
-      return;
-    } else if (!args) {
+    if (!args) {
       core.setFailed("args input required");
       return;
     }
 
-    let exe = `${binDir}/resto`;
-
-    if (platform() === "win32") {
-      exe += ".exe";
-    }
-
-    exec.exec(`which resto`);
     exec.exec(`resto ${args}`);
   } catch (error: any) {
     core.setFailed(error.message);
