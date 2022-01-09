@@ -19,7 +19,7 @@ async function run() {
       return;
     }
 
-    let exe = `${binDir}/bin/resto`;
+    let exe = `${binDir}/resto`;
 
     if (platform() === "win32") {
       exe += ".exe";

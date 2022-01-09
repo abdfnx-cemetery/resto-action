@@ -20,7 +20,7 @@ export async function installZip(path, url) {
   const downloadPath = await tc.downloadTool(url);
   await tc.extractZip(downloadPath, path);
 
-  exec.exec(`echo ${path}`);
+  exec.exec(`echo ${downloadPath}`);
 
   core.addPath(path);
 }

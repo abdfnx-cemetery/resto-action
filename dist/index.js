@@ -59,7 +59,7 @@ function installZip(path, url) {
         yield io.mkdirP(path);
         const downloadPath = yield tc.downloadTool(url);
         yield tc.extractZip(downloadPath, path);
-        exec.exec(`echo ${path}`);
+        exec.exec(`echo ${downloadPath}`);
         core.addPath(path);
     });
 }
@@ -140,7 +140,7 @@ function run() {
                 core.setFailed("args input required");
                 return;
             }
-            let exe = `${installer_1.binDir}/bin/resto`;
+            let exe = `${installer_1.binDir}/resto`;
             if ((0, os_1.platform)() === "win32") {
                 exe += ".exe";
             }
