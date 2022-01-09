@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-import { version, binDir, install } from "./installer";
+import { version, install } from "./installer";
 
 async function run() {
   try {
@@ -9,21 +9,16 @@ async function run() {
 
     core.info(`Resto ${version()} installed successfully`);
 
+    install();
+
     if (isJustInstall) {
-      install();
       return;
     } else if (!args) {
       core.setFailed("args input required");
       return;
     }
 
-    let exe = `${binDir}/resto`;
-
-    if (process.platform === "win32") {
-      exe += ".exe";
-    }
-
-    await exec.exec(`${exe} ${args}`);
+    await exec.exec(`resto ${args}`);
   } catch (error: any) {
     core.setFailed(error.message);
   }

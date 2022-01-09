@@ -43,13 +43,13 @@ export async function executeInstallSh(installPath) {
 export const install = async () => {
   switch (process.platform) {
     case "win32": {
-      exec.exec("iwr -useb https://git.io/resto-win | iex");
+      await exec.exec("iwr -useb https://git.io/resto-win | iex");
       break;
     }
 
     case "linux":
     case "darwin": {
-      exec.exec("curl -sL https://git.io/resto | bash");
+      await exec.exec("curl -sL https://git.io/resto | bash");
       break;
     }
 
