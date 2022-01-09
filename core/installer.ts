@@ -6,7 +6,7 @@ const execSync = require("child_process");
 
 export let version = "";
 const workspace = process.env.GITHUB_WORKSPACE;
-const binDir = `${workspace}/bin`;
+export const binDir = `${workspace}/bin`;
 getLatest("abdfnx/resto").then((v: any) => (version = v));
 
 export async function installZip(path, url) {
