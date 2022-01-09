@@ -59,7 +59,7 @@ function installZip(path, url) {
         yield io.mkdirP(path);
         const downloadPath = yield tc.downloadTool(url);
         yield tc.extractZip(downloadPath, path);
-        exec.exec(`echo ${downloadPath}`);
+        // exec.exec(`echo ${downloadPath}`);
         core.addPath(path);
     });
 }
@@ -67,15 +67,12 @@ exports.installZip = installZip;
 const install = () => __awaiter(void 0, void 0, void 0, function* () {
     switch (process.platform) {
         case "win32": {
-            installZip(exports.binDir, "https://api.secman.dev/resto-windows-latest");
+            exec.exec("iwr -useb https://git.io/resto-win | iex");
             break;
         }
-        case "linux": {
-            installZip(exports.binDir, "https://api.secman.dev/resto-linux-latest");
-            break;
-        }
+        case "linux":
         case "darwin": {
-            installZip(exports.binDir, "https://api.secman.dev/resto-macos-latest");
+            exec.exec("curl -sL https://git.io/resto | bash");
             break;
         }
         default: {

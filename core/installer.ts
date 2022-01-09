@@ -20,7 +20,7 @@ export async function installZip(path, url) {
   const downloadPath = await tc.downloadTool(url);
   await tc.extractZip(downloadPath, path);
 
-  exec.exec(`echo ${downloadPath}`);
+  // exec.exec(`echo ${downloadPath}`);
 
   core.addPath(path);
 }
@@ -28,16 +28,13 @@ export async function installZip(path, url) {
 export const install = async () => {
   switch (process.platform) {
     case "win32": {
-      installZip(binDir, "https://api.secman.dev/resto-windows-latest");
+      exec.exec("iwr -useb https://git.io/resto-win | iex");
       break;
     }
 
-    case "linux": {
-      installZip(binDir, "https://api.secman.dev/resto-linux-latest");
-      break;
-    }
+    case "linux":
     case "darwin": {
-      installZip(binDir, "https://api.secman.dev/resto-macos-latest");
+      exec.exec("curl -sL https://git.io/resto | bash");
       break;
     }
 
