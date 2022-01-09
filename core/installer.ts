@@ -1,13 +1,19 @@
 import * as core from "@actions/core";
 import * as tc from "@actions/tool-cache";
 import * as io from "@actions/io";
-import getLatest from "get-latest-repo";
+import axios from "axios";
 const execSync = require("child_process");
 
-export let version = "";
+export function version() {
+  return axios
+    .get("https://get-latest.secman.dev/abdfnx/resto")
+    .then((response) => {
+      return response.data;
+    });
+}
+
 const workspace = process.env.GITHUB_WORKSPACE;
 export const binDir = `${workspace}/bin`;
-getLatest("abdfnx/resto").then((v: any) => (version = v));
 
 export async function installZip(path, url) {
   await io.mkdirP(path);
@@ -36,7 +42,7 @@ export async function executeInstallSh(installPath) {
 export const install = async () => {
   switch (process.platform) {
     case "win32": {
-      const url = `https://github.com/abdfnx/resto/releases/download/${version}/resto_windows_${version}_amd64.zip`;
+      const url = `https://github.com/abdfnx/resto/releases/download/${version()}/resto_windows_${version()}_amd64.zip`;
       await installZip(binDir, url);
       break;
     }

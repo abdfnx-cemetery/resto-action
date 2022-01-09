@@ -7,7 +7,7 @@ async function run() {
     const args = core.getInput("args");
     const isJustInstall = /^true$/i.test(core.getInput("just-install"));
 
-    core.info(`Resto ${version} installed successfully`);
+    core.info(`Resto ${version()} installed successfully`);
 
     if (isJustInstall) {
       install();
