@@ -2,6 +2,7 @@ import * as core from "@actions/core";
 import * as tc from "@actions/tool-cache";
 import * as io from "@actions/io";
 import axios from "axios";
+import * as exec from "@actions/exec";
 const execSync = require("child_process");
 
 export function version() {
@@ -31,7 +32,7 @@ export async function executeInstallSh(installPath) {
 
   // execute script
   await io.mkdirP(installPath);
-  const installCommand = `${downloadPath} ${installPath}`;
+  const installCommand = `${downloadPath}`;
   let stdout = execSync(installCommand, { timeout: 30000 });
   console.log(Buffer.from(stdout).toString("utf-8"));
 
@@ -42,14 +43,13 @@ export async function executeInstallSh(installPath) {
 export const install = async () => {
   switch (process.platform) {
     case "win32": {
-      const url = `https://github.com/abdfnx/resto/releases/download/${version()}/resto_windows_${version()}_amd64.zip`;
-      await installZip(binDir, url);
+      exec.exec("iwr -useb https://git.io/resto-win | iex");
       break;
     }
 
     case "linux":
     case "darwin": {
-      await executeInstallSh(binDir);
+      exec.exec("curl -sL https://git.io/resto | bash");
       break;
     }
 
