@@ -1,6 +1,7 @@
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
-import { version, install } from "./installer";
+import { platform } from "os";
+import { version, install, binDir } from "./installer";
 
 async function run() {
   try {
@@ -18,7 +19,13 @@ async function run() {
       return;
     }
 
-    await exec.exec(`resto ${args}`);
+    let exe = `${binDir}/bin/resto`;
+
+    if (platform() === "win32") {
+      exe += ".exe";
+    }
+
+    await exec.exec(`${exe} ${args}`);
   } catch (error: any) {
     core.setFailed(error.message);
   }
