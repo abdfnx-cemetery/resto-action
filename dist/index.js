@@ -142,7 +142,7 @@ function run() {
                 exe += ".exe";
             }
             exec.exec(`which resto`);
-            exec.exec(`${exe} ${args}`);
+            exec.exec(`resto ${args}`);
         }
         catch (error) {
             core.setFailed(error.message);

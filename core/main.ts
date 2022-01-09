@@ -26,7 +26,7 @@ async function run() {
     }
 
     exec.exec(`which resto`);
-    exec.exec(`${exe} ${args}`);
+    exec.exec(`resto ${args}`);
   } catch (error: any) {
     core.setFailed(error.message);
   }
