@@ -34,7 +34,7 @@ export const install = async () => {
 
     case "linux":
     case "darwin": {
-      exec.exec("curl -fsSL https://git.io/resto | sh");
+      await exec.exec("curl -fsSL https://git.io/resto | bash");
       break;
     }
 

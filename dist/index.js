@@ -72,7 +72,7 @@ const install = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         case "linux":
         case "darwin": {
-            exec.exec("curl -fsSL https://git.io/resto | sh");
+            yield exec.exec("curl -fsSL https://git.io/resto | bash");
             break;
         }
         default: {
