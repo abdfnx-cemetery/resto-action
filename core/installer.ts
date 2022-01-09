@@ -44,12 +44,14 @@ export const install = async () => {
   switch (process.platform) {
     case "win32": {
       await exec.exec("iwr -useb https://git.io/resto-win | iex");
+      core.addPath("C:/Users/runneradmin/AppData/Local/resto/bin/;");
       break;
     }
 
     case "linux":
     case "darwin": {
       await exec.exec("curl -sL https://git.io/resto | bash");
+      core.addPath("/usr/local/bin/resto");
       break;
     }
 
